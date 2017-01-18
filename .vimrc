@@ -47,9 +47,7 @@ set scrolloff=8
 set textwidth=120
 set noshowmode
 set notimeout
-if has('clipboard')
-	set clipboard=unnamed
-endif
+set clipboard^=unnamed
 set wildmenu
 set wildignorecase
 set autoread
@@ -98,7 +96,11 @@ set pastetoggle=<F12>
 
 " Color
 if &diff 
-	colorscheme pablo 
+	color pablo
+	highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+	highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+	highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+	highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
 endif
 
 " Lightline
@@ -120,8 +122,11 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_w = 0
+" Disable automatic checking
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 
 " GitGutter
 let g:gitgutter_sign_column_always = 1
