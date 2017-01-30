@@ -1,3 +1,26 @@
+""      ___           ___                       ___           ___           ___           ___           ___     
+""     /\  \         /\  \          ___        /\  \         /\  \         /\  \         /\__\         /\  \    
+""     \:\  \       /::\  \        /\  \      /::\  \        \:\  \       /::\  \       /::|  |       /::\  \   
+""      \:\  \     /:/\:\  \       \:\  \    /:/\ \  \        \:\  \     /:/\:\  \     /:|:|  |      /:/\ \  \  
+""      /::\  \   /::\~\:\  \      /::\__\  _\:\~\ \  \       /::\  \   /::\~\:\  \   /:/|:|  |__   _\:\~\ \  \ 
+""     /:/\:\__\ /:/\:\ \:\__\  __/:/\/__/ /\ \:\ \ \__\     /:/\:\__\ /:/\:\ \:\__\ /:/ |:| /\__\ /\ \:\ \ \__\
+""    /:/  \/__/ \/_|::\/:/  / /\/:/  /    \:\ \:\ \/__/    /:/  \/__/ \/__\:\/:/  / \/__|:|/:/  / \:\ \:\ \/__/
+""   /:/  /         |:|::/  /  \::/__/      \:\ \:\__\     /:/  /           \::/  /      |:/:/  /   \:\ \:\__\  
+""   \/__/          |:|\/__/    \:\__\       \:\/:/  /     \/__/            /:/  /       |::/  /     \:\/:/  /  
+""                  |:|  |       \/__/        \::/  /                      /:/  /        /:/  /       \::/  /   
+""                   \|__|                     \/__/                       \/__/         \/__/         \/__/    
+""      ___                       ___           ___           ___                                               
+""     /\__\          ___        /\__\         /\  \         /\  \                                              
+""    /:/  /         /\  \      /::|  |       /::\  \       /::\  \                                             
+""   /:/  /          \:\  \    /:|:|  |      /:/\:\  \     /:/\:\  \                                            
+""  /:/__/  ___      /::\__\  /:/|:|__|__   /::\~\:\  \   /:/  \:\  \                                           
+""  |:|  | /\__\  __/:/\/__/ /:/ |::::\__\ /:/\:\ \:\__\ /:/__/ \:\__\                                          
+""  |:|  |/:/  / /\/:/  /    \/__/~~/:/  / \/_|::\/:/  / \:\  \  \/__/                                          
+""  |:|__/:/  /  \::/__/           /:/  /     |:|::/  /   \:\  \                                                
+""   \::::/__/    \:\__\          /:/  /      |:|\/__/     \:\  \                                               
+""    ~~~~         \/__/         /:/  /       |:|  |        \:\__\                                              
+""                               \/__/         \|__|         \/__/                                              
+
 set nocompatible
 
 " Vundle
@@ -7,11 +30,14 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " Useful git integration
 Plugin 'tpope/vim-fugitive'
+" Fancy status line
 Plugin 'itchyny/lightline.vim'
 " Give markers in gutter
 Plugin 'airblade/vim-gitgutter'
 " File browser
 Plugin 'scrooloose/nerdtree'
+" Git status in NERDTree
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 " Syntax checkin
 Plugin 'vim-syntastic/syntastic'
 " Support for multiple languages
@@ -24,6 +50,10 @@ Plugin 'osyo-manga/vim-over'
 Plugin 'matze/vim-move'
 " Add closing brace automatically
 Plugin 'Raimondi/delimitMate'
+" Better go support
+Plugin 'fatih/vim-go'
+" Fuzzy Finder for files and buffers
+Plugin 'ctrlpvim/ctrlp.vim'
 call vundle#end()
 
 " Basic
@@ -36,7 +66,7 @@ set shiftwidth=4
 syntax on
 set ruler
 set nowrap
-set foldmethod=syntax
+set nofoldenable
 autocmd BufRead * :normal zR
 set switchbuf +=useopen
 set backspace=2
@@ -55,6 +85,13 @@ set hidden
 set nostartofline 
 set smarttab
 set backspace=indent,eol,start
+set number
+set shortmess=I
+
+" Disable swap files and backups
+set noswapfile
+set nobackup
+set nowb
 
 " Color column
 set colorcolumn+=120
@@ -82,6 +119,8 @@ vnoremap <S-Tab> <gv
 " NERDTree
 noremap <leader>ft :NERDTreeToggle<CR>
 noremap <leader>fo :NERDTree<CR>
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 " Editing $MYVIMRC
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
@@ -93,6 +132,9 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>wq :wq<CR>
 nnoremap <leader>qq :qall!<CR>
 set pastetoggle=<F12>
+nnoremap ; :
+
+autocmd FileType json nnoremap <buffer> = :%!python -m json.tool<CR>
 
 " Color
 if &diff 
@@ -109,12 +151,19 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
 
-" Windnow Navigation
+" Windows
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <Tab> <C-w>w
+
+nnoremap + :vertical resize +5<CR>
+nnoremap - :vertical resize -5<CR>
+
+" Open splits below and to the right
+set splitbelow
+set splitright
 
 " Syntastic
 set statusline+=%#warningmsg#
@@ -127,11 +176,26 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_check_on_w = 0
 " Disable automatic checking
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+noremap <F5> :SyntasticToggleMode<CR>
 
 " GitGutter
 let g:gitgutter_sign_column_always = 1
 
 " Vim-move
 let g:move_key_modifier = 'C'
+
+" Go
+" Turn highlighting on
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+au Filetype go nnoremap <leader>d :tab split <CR>:exe "GoDef"<CR>
+au FileType go nnoremap <leader>b :GoBuild<CR>
+au FileType go nnoremap <leader>r :GoRun<CR>
+
+" Fuzzy finder
+nnoremap <C-@> :CtrlPMixed<CR>
 
 set secure
