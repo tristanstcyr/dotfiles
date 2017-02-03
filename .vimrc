@@ -198,4 +198,7 @@ au FileType go nnoremap <leader>r :GoRun<CR>
 " Fuzzy finder
 nnoremap <C-@> :CtrlPMixed<CR>
 
+" eyaml is yaml
+au BufRead,BufNewFile *.eyaml set filetype=yaml
+
 set secure
