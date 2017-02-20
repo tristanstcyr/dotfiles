@@ -31,7 +31,8 @@ Plugin 'VundleVim/Vundle.vim'
 " Useful git integration
 Plugin 'tpope/vim-fugitive'
 " Fancy status line
-Plugin 'itchyny/lightline.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 " Give markers in gutter
 Plugin 'airblade/vim-gitgutter'
 " File browser
@@ -54,6 +55,10 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'fatih/vim-go'
 " Fuzzy Finder for files and buffers
 Plugin 'ctrlpvim/ctrlp.vim'
+" Colors
+Plugin 'flazz/vim-colorschemes'
+" Javascript
+Plugin 'maksimr/vim-jsbeautify'
 call vundle#end()
 
 " Basic
@@ -67,8 +72,6 @@ syntax on
 set ruler
 set nowrap
 set nofoldenable
-autocmd BufRead * :normal zR
-set switchbuf +=useopen
 set backspace=2
 set mouse=a
 set updatetime=250
@@ -87,11 +90,15 @@ set smarttab
 set backspace=indent,eol,start
 set number
 set shortmess=I
+set noesckeys
 
 " Disable swap files and backups
 set noswapfile
 set nobackup
 set nowb
+
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 " Color column
 set colorcolumn+=120
@@ -119,6 +126,7 @@ vnoremap <S-Tab> <gv
 " NERDTree
 noremap <leader>ft :NERDTreeToggle<CR>
 noremap <leader>fo :NERDTree<CR>
+noremap <leader>ff :NERDTree<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
@@ -127,36 +135,21 @@ nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " Other Shortcuts
+nnoremap { }
+nnoremap } {
 nnoremap <leader>ss :mks! Session.vim<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <leader>wq :wq<CR>
 nnoremap <leader>qq :qall!<CR>
+noremap <C-S> :
 set pastetoggle=<F12>
 nnoremap ; :
 
 autocmd FileType json nnoremap <buffer> = :%!python -m json.tool<CR>
+autocmd FileType javascript nnoremap <buffer> = :call JsBeautify()<CR>
 
 " Color
-if &diff 
-	color pablo
-	highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-	highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-	highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-	highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-endif
-
-" Lightline
-set laststatus=2
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
-
-" Windows
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-nnoremap <Tab> <C-w>w
+color jellybeans
 
 nnoremap + :vertical resize +5<CR>
 nnoremap - :vertical resize -5<CR>
@@ -166,9 +159,6 @@ set splitbelow
 set splitright
 
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
@@ -176,7 +166,9 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_check_on_w = 0
 " Disable automatic checking
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-noremap <F5> :SyntasticToggleMode<CR>
+nnoremap m :SyntasticCheck<CR>
+nnoremap > :lnext<CR>
+nnoremap < :lprev<CR>
 
 " GitGutter
 let g:gitgutter_sign_column_always = 1
@@ -200,5 +192,23 @@ nnoremap <C-@> :CtrlPMixed<CR>
 
 " eyaml is yaml
 au BufRead,BufNewFile *.eyaml set filetype=yaml
+
+" Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_mode_map = {
+	\ '__' : '-',
+	\ 'n'  : 'N',
+	\ 'i'  : 'I',
+	\ 'R'  : 'R',
+	\ 'c'  : 'C',
+	\ 'v'  : 'V',
+	\ 'V'  : 'V',
+	\ '' : 'V',
+	\ 's'  : 'S',
+	\ 'S'  : 'S',
+	\ '' : 'S',
+	\ }
 
 set secure
