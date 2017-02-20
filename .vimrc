@@ -1,25 +1,25 @@
-""      ___           ___                       ___           ___           ___           ___           ___     
-""     /\  \         /\  \          ___        /\  \         /\  \         /\  \         /\__\         /\  \    
-""     \:\  \       /::\  \        /\  \      /::\  \        \:\  \       /::\  \       /::|  |       /::\  \   
-""      \:\  \     /:/\:\  \       \:\  \    /:/\ \  \        \:\  \     /:/\:\  \     /:|:|  |      /:/\ \  \  
-""      /::\  \   /::\~\:\  \      /::\__\  _\:\~\ \  \       /::\  \   /::\~\:\  \   /:/|:|  |__   _\:\~\ \  \ 
+""      ___           ___                       ___           ___           ___           ___           ___
+""     /\  \         /\  \          ___        /\  \         /\  \         /\  \         /\__\         /\  \
+""     \:\  \       /::\  \        /\  \      /::\  \        \:\  \       /::\  \       /::|  |       /::\  \
+""      \:\  \     /:/\:\  \       \:\  \    /:/\ \  \        \:\  \     /:/\:\  \     /:|:|  |      /:/\ \  \
+""      /::\  \   /::\~\:\  \      /::\__\  _\:\~\ \  \       /::\  \   /::\~\:\  \   /:/|:|  |__   _\:\~\ \  \
 ""     /:/\:\__\ /:/\:\ \:\__\  __/:/\/__/ /\ \:\ \ \__\     /:/\:\__\ /:/\:\ \:\__\ /:/ |:| /\__\ /\ \:\ \ \__\
 ""    /:/  \/__/ \/_|::\/:/  / /\/:/  /    \:\ \:\ \/__/    /:/  \/__/ \/__\:\/:/  / \/__|:|/:/  / \:\ \:\ \/__/
-""   /:/  /         |:|::/  /  \::/__/      \:\ \:\__\     /:/  /           \::/  /      |:/:/  /   \:\ \:\__\  
-""   \/__/          |:|\/__/    \:\__\       \:\/:/  /     \/__/            /:/  /       |::/  /     \:\/:/  /  
-""                  |:|  |       \/__/        \::/  /                      /:/  /        /:/  /       \::/  /   
-""                   \|__|                     \/__/                       \/__/         \/__/         \/__/    
-""      ___                       ___           ___           ___                                               
-""     /\__\          ___        /\__\         /\  \         /\  \                                              
-""    /:/  /         /\  \      /::|  |       /::\  \       /::\  \                                             
-""   /:/  /          \:\  \    /:|:|  |      /:/\:\  \     /:/\:\  \                                            
-""  /:/__/  ___      /::\__\  /:/|:|__|__   /::\~\:\  \   /:/  \:\  \                                           
-""  |:|  | /\__\  __/:/\/__/ /:/ |::::\__\ /:/\:\ \:\__\ /:/__/ \:\__\                                          
-""  |:|  |/:/  / /\/:/  /    \/__/~~/:/  / \/_|::\/:/  / \:\  \  \/__/                                          
-""  |:|__/:/  /  \::/__/           /:/  /     |:|::/  /   \:\  \                                                
-""   \::::/__/    \:\__\          /:/  /      |:|\/__/     \:\  \                                               
-""    ~~~~         \/__/         /:/  /       |:|  |        \:\__\                                              
-""                               \/__/         \|__|         \/__/                                              
+""   /:/  /         |:|::/  /  \::/__/      \:\ \:\__\     /:/  /           \::/  /      |:/:/  /   \:\ \:\__\
+""   \/__/          |:|\/__/    \:\__\       \:\/:/  /     \/__/            /:/  /       |::/  /     \:\/:/  /
+""                  |:|  |       \/__/        \::/  /                      /:/  /        /:/  /       \::/  /
+""                   \|__|                     \/__/                       \/__/         \/__/         \/__/
+""      ___                       ___           ___           ___
+""     /\__\          ___        /\__\         /\  \         /\  \
+""    /:/  /         /\  \      /::|  |       /::\  \       /::\  \
+""   /:/  /          \:\  \    /:|:|  |      /:/\:\  \     /:/\:\  \
+""  /:/__/  ___      /::\__\  /:/|:|__|__   /::\~\:\  \   /:/  \:\  \
+""  |:|  | /\__\  __/:/\/__/ /:/ |::::\__\ /:/\:\ \:\__\ /:/__/ \:\__\
+""  |:|  |/:/  / /\/:/  /    \/__/~~/:/  / \/_|::\/:/  / \:\  \  \/__/
+""  |:|__/:/  /  \::/__/           /:/  /     |:|::/  /   \:\  \
+""   \::::/__/    \:\__\          /:/  /      |:|\/__/     \:\  \
+""    ~~~~         \/__/         /:/  /       |:|  |        \:\__\
+""                               \/__/         \|__|         \/__/
 
 set nocompatible
 
@@ -59,6 +59,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'flazz/vim-colorschemes'
 " Javascript
 Plugin 'maksimr/vim-jsbeautify'
+" Close buffers without changing layout
+Plugin 'qpkorr/vim-bufkill'
 call vundle#end()
 
 " Basic
@@ -66,7 +68,7 @@ set enc=utf-8
 set fenc=utf-8
 set termencoding=utf-8
 set autoindent
-set tabstop=4 
+set tabstop=4
 set shiftwidth=4
 syntax on
 set ruler
@@ -85,12 +87,13 @@ set wildmenu
 set wildignorecase
 set autoread
 set hidden
-set nostartofline 
+set nostartofline
 set smarttab
 set backspace=indent,eol,start
 set number
 set shortmess=I
 set noesckeys
+set textwidth=0
 
 " Disable swap files and backups
 set noswapfile
@@ -106,7 +109,7 @@ hi ColorColumn ctermbg=darkgray
 
 " omnicomplete
 filetype plugin on
-set omnifunc=syntaxcomplete#Complete 
+set omnifunc=syntaxcomplete#Complete
 inoremap <NUL> <C-X><C-O>
 autocmd CompleteDone * pclose
 set completeopt-=preview
@@ -119,7 +122,7 @@ set wrapscan
 set hlsearch
 set showmatch
 
-" Indenting 
+" Indenting
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
@@ -144,6 +147,7 @@ nnoremap <leader>qq :qall!<CR>
 noremap <C-S> :
 set pastetoggle=<F12>
 nnoremap ; :
+nnoremap<leader>h :set list!<CR>
 
 autocmd FileType json nnoremap <buffer> = :%!python -m json.tool<CR>
 autocmd FileType javascript nnoremap <buffer> = :call JsBeautify()<CR>
@@ -210,5 +214,8 @@ let g:airline_mode_map = {
 	\ 'S'  : 'S',
 	\ '' : 'S',
 	\ }
+
+" BufKill
+nnoremap <leader>bd :BD<CR>c
 
 set secure
