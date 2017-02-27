@@ -41,8 +41,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " Syntax checkin
 Plugin 'vim-syntastic/syntastic'
-" Support for multiple languages
-Plugin 'sheerun/vim-polyglot'
 " Auto Complete
 Plugin 'Valloric/YouCompleteMe'
 " Search Replace line preview
@@ -60,7 +58,13 @@ Plugin 'flazz/vim-colorschemes'
 " Javascript
 Plugin 'maksimr/vim-jsbeautify'
 " Close buffers without changing layout
+Plugin 'sheerun/vim-polyglot'
+" Kill buffers without closing windows
 Plugin 'qpkorr/vim-bufkill'
+" tmux focus events
+Plugin 'tmux-plugins/vim-tmux-focus-events'
+" Comment out code
+Plugin 'scrooloose/nerdcommenter'
 call vundle#end()
 
 " Basic
@@ -94,6 +98,7 @@ set number
 set shortmess=I
 set noesckeys
 set textwidth=0
+set cul!
 
 " Disable swap files and backups
 set noswapfile
@@ -154,9 +159,13 @@ autocmd FileType javascript nnoremap <buffer> = :call JsBeautify()<CR>
 
 " Color
 color jellybeans
+let g:jellybeans_use_term_italics = 1
+set ttyfast
 
 nnoremap + :vertical resize +5<CR>
 nnoremap - :vertical resize -5<CR>
+nnoremap ( :horizontal resize +5<CR>
+nnoremap ) :horizonstal resize -5<CR>
 
 " Open splits below and to the right
 set splitbelow
@@ -214,8 +223,12 @@ let g:airline_mode_map = {
 	\ 'S'  : 'S',
 	\ '' : 'S',
 	\ }
+set laststatus=2
 
 " BufKill
 nnoremap <leader>bd :BD<CR>c
+
+" NERDCommenter
+let g:NERDDefaultAlign = 'left'
 
 set secure
