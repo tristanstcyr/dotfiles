@@ -156,16 +156,19 @@ nnoremap<leader>h :set list!<CR>
 
 autocmd FileType json nnoremap <buffer> = :%!python -m json.tool<CR>
 autocmd FileType javascript nnoremap <buffer> = :call JsBeautify()<CR>
+autocmd FileType javascript nnoremap <buffer> <leader>r :!npm start<CR>
 
 " Color
 color jellybeans
 let g:jellybeans_use_term_italics = 1
 set ttyfast
+set lazyredraw
+set synmaxcol=120
 
 nnoremap + :vertical resize +5<CR>
 nnoremap - :vertical resize -5<CR>
-nnoremap ( :horizontal resize +5<CR>
-nnoremap ) :horizonstal resize -5<CR>
+nnoremap > :horizontal resize +5<CR>
+nnoremap < :horizonstal resize -5<CR>
 
 " Open splits below and to the right
 set splitbelow
@@ -179,7 +182,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_check_on_w = 0
 " Disable automatic checking
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-nnoremap m :SyntasticCheck<CR>
+nnoremap <leader>m :SyntasticCheck<CR>
 nnoremap > :lnext<CR>
 nnoremap < :lprev<CR>
 
@@ -226,7 +229,7 @@ let g:airline_mode_map = {
 set laststatus=2
 
 " BufKill
-nnoremap <leader>bd :BD<CR>c
+nnoremap <leader>bd :BD<CR>
 
 " NERDCommenter
 let g:NERDDefaultAlign = 'left'
