@@ -41,23 +41,17 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " Syntax checkin
 Plugin 'vim-syntastic/syntastic'
-" Auto Complete
-Plugin 'Valloric/YouCompleteMe'
 " Search Replace line preview
 Plugin 'osyo-manga/vim-over'
 " Commands for moving lines around
 Plugin 'matze/vim-move'
-" Add closing brace automatically
-Plugin 'Raimondi/delimitMate'
-" Better go support
-Plugin 'fatih/vim-go'
 " Fuzzy Finder for files and buffers
 Plugin 'ctrlpvim/ctrlp.vim'
 " Colors
-Plugin 'flazz/vim-colorschemes'
+Plugin 'nanotech/jellybeans.vim'
 " Javascript
 Plugin 'maksimr/vim-jsbeautify'
-" Close buffers without changing layout
+" Better syntax highlighting
 Plugin 'sheerun/vim-polyglot'
 " Kill buffers without closing windows
 Plugin 'qpkorr/vim-bufkill'
@@ -65,40 +59,39 @@ Plugin 'qpkorr/vim-bufkill'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 " Comment out code
 Plugin 'scrooloose/nerdcommenter'
+" Delete all buffers except current
+Plugin 'vim-scripts/BufOnly.vim'
+" Search across files
+Plugin 'mileszs/ack.vim'
+" Add marks to gutter
+Plugin 'kshenoy/vim-signature'
 call vundle#end()
 
 " Basic
 set enc=utf-8
-set fenc=utf-8
-set termencoding=utf-8
 set autoindent
 set tabstop=4
 set shiftwidth=4
 syntax on
-set ruler
 set nowrap
 set nofoldenable
 set backspace=2
 set mouse=a
-set updatetime=250
 set visualbell t_vb=
-set scrolloff=8
+set scrolloff=4
 set textwidth=120
 set noshowmode
-set notimeout
 set clipboard^=unnamed
 set wildmenu
 set wildignorecase
 set autoread
 set hidden
-set nostartofline
 set smarttab
 set backspace=indent,eol,start
 set number
 set shortmess=I
 set noesckeys
 set textwidth=0
-set cul!
 
 " Disable swap files and backups
 set noswapfile
@@ -110,14 +103,6 @@ nnoremap <S-Tab> :bprevious<CR>
 
 " Color column
 set colorcolumn+=120
-hi ColorColumn ctermbg=darkgray
-
-" omnicomplete
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete
-inoremap <NUL> <C-X><C-O>
-autocmd CompleteDone * pclose
-set completeopt-=preview
 
 "Search
 noremap <F3> :set hlsearch!<CR>
@@ -160,10 +145,9 @@ autocmd FileType javascript nnoremap <buffer> <leader>r :!npm start<CR>
 
 " Color
 color jellybeans
-let g:jellybeans_use_term_italics = 1
 set ttyfast
 set lazyredraw
-set synmaxcol=120
+set synmaxcol=300
 
 nnoremap + :vertical resize +5<CR>
 nnoremap - :vertical resize -5<CR>
@@ -186,22 +170,8 @@ nnoremap <leader>m :SyntasticCheck<CR>
 nnoremap > :lnext<CR>
 nnoremap < :lprev<CR>
 
-" GitGutter
-let g:gitgutter_sign_column_always = 1
-
 " Vim-move
 let g:move_key_modifier = 'C'
-
-" Go
-" Turn highlighting on
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-au Filetype go nnoremap <leader>d :tab split <CR>:exe "GoDef"<CR>
-au FileType go nnoremap <leader>b :GoBuild<CR>
-au FileType go nnoremap <leader>r :GoRun<CR>
 
 " Fuzzy finder
 nnoremap <C-@> :CtrlPMixed<CR>
@@ -230,6 +200,7 @@ set laststatus=2
 
 " BufKill
 nnoremap <leader>bd :BD<CR>
+nnoremap <leader>bo :BufOnly<CR>
 
 " NERDCommenter
 let g:NERDDefaultAlign = 'left'
