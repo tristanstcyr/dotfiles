@@ -65,6 +65,8 @@ Plugin 'vim-scripts/BufOnly.vim'
 Plugin 'mileszs/ack.vim'
 " Add marks to gutter
 Plugin 'kshenoy/vim-signature'
+" Tmux pane navigation integration
+Plugin 'christoomey/vim-tmux-navigator'
 call vundle#end()
 
 " Basic
@@ -92,6 +94,7 @@ set number
 set shortmess=I
 set noesckeys
 set textwidth=0
+set whichwrap+=<,>,h,l,[,]
 
 " Disable swap files and backups
 set noswapfile
@@ -149,10 +152,10 @@ set ttyfast
 set lazyredraw
 set synmaxcol=300
 
-nnoremap + :vertical resize +5<CR>
-nnoremap - :vertical resize -5<CR>
-nnoremap > :horizontal resize +5<CR>
-nnoremap < :horizonstal resize -5<CR>
+nnoremap > :vertical resize +5<CR>
+nnoremap < :vertical resize -5<CR>
+nnoremap + :res +5<CR>
+nnoremap - :res -5<CR>
 
 " Open splits below and to the right
 set splitbelow
@@ -167,14 +170,16 @@ let g:syntastic_check_on_w = 0
 " Disable automatic checking
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <leader>m :SyntasticCheck<CR>
-nnoremap > :lnext<CR>
-nnoremap < :lprev<CR>
+nnoremap { :lnext<CR>
+nnoremap } :lprev<CR>
+nnoremap <leader>e :lclose<CR>
+let g:syntastic_javascript_checkers = ['jshint']
 
 " Vim-move
 let g:move_key_modifier = 'C'
 
 " Fuzzy finder
-nnoremap <C-@> :CtrlPMixed<CR>
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " eyaml is yaml
 au BufRead,BufNewFile *.eyaml set filetype=yaml
