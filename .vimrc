@@ -67,13 +67,15 @@ Plugin 'mileszs/ack.vim'
 Plugin 'kshenoy/vim-signature'
 " Tmux pane navigation integration
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'vimwiki/vimwiki'
 call vundle#end()
 
 " Basic
 set enc=utf-8
 set autoindent
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 syntax on
 set nowrap
 set nofoldenable
@@ -174,6 +176,10 @@ nnoremap { :lnext<CR>
 nnoremap } :lprev<CR>
 nnoremap <leader>e :lclose<CR>
 let g:syntastic_javascript_checkers = ['jshint']
+
+nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gt :YcmCompleter GetType<CR>
+nnoremap <leader>fi :YcmCompleter FixIt<CR>
 
 " Vim-move
 let g:move_key_modifier = 'C'
