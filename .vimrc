@@ -69,6 +69,7 @@ Plugin 'kshenoy/vim-signature'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vimwiki/vimwiki'
+Plugin 'leafgarland/typescript-vim'
 call vundle#end()
 
 " Basic
@@ -177,9 +178,24 @@ nnoremap } :lprev<CR>
 nnoremap <leader>e :lclose<CR>
 let g:syntastic_javascript_checkers = ['jshint']
 
+let g:ycm_show_diagnostics_ui = 1
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_auto_trigger = 0
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gt :YcmCompleter GetType<CR>
 nnoremap <leader>fi :YcmCompleter FixIt<CR>
+nnoremap <leader>rr :YcmCompleter RefactorRename 
+nnoremap <leader>tc :call ToggleDiagnosticsUI()<cr>
+
+function ToggleDiagnosticsUI()
+	if g:ycm_show_diagnostics_ui
+		let g:ycm_show_diagnostics_ui = 0
+		echo "off"
+	else
+		let g:ycm_show_diagnostics_ui = 1
+		echo "on"
+	endif
+endfunction
 
 " Vim-move
 let g:move_key_modifier = 'C'
@@ -215,5 +231,8 @@ nnoremap <leader>bo :BufOnly<CR>
 
 " NERDCommenter
 let g:NERDDefaultAlign = 'left'
+
+" YAML
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 set secure
