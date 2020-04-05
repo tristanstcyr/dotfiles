@@ -39,18 +39,12 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/nerdtree'
 " Git status in NERDTree
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-" Syntax checkin
-Plugin 'vim-syntastic/syntastic'
 " Search Replace line preview
 Plugin 'osyo-manga/vim-over'
-" Commands for moving lines around
-Plugin 'matze/vim-move'
 " Fuzzy Finder for files and buffers
 Plugin 'ctrlpvim/ctrlp.vim'
 " Colors
 Plugin 'nanotech/jellybeans.vim'
-" Javascript
-Plugin 'maksimr/vim-jsbeautify'
 " Better syntax highlighting
 Plugin 'sheerun/vim-polyglot'
 " Kill buffers without closing windows
@@ -67,10 +61,15 @@ Plugin 'mileszs/ack.vim'
 Plugin 'kshenoy/vim-signature'
 " Tmux pane navigation integration
 Plugin 'christoomey/vim-tmux-navigator'
+" Auto-completion
 Plugin 'Valloric/YouCompleteMe'
+" Personal wiki in vim
 Plugin 'vimwiki/vimwiki'
-Plugin 'leafgarland/typescript-vim'
+" Typescript syntax
+"Plugin 'leafgarland/typescript-vim'
+Plugin 'vim-scripts/taglist.vim'
 call vundle#end()
+filetype plugin on
 
 " Basic
 set enc=utf-8
@@ -87,8 +86,12 @@ set scrolloff=4
 set textwidth=120
 set noshowmode
 set clipboard^=unnamed
+
+" Improved command line completion
 set wildmenu
+set wildmode=longest:full,full
 set wildignorecase
+
 set autoread
 set hidden
 set smarttab
@@ -128,11 +131,11 @@ noremap <leader>fo :NERDTree<CR>
 noremap <leader>ff :NERDTree<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-
+"
 " Editing $MYVIMRC
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
-
+"
 " Other Shortcuts
 nnoremap { }
 nnoremap } {
@@ -146,8 +149,6 @@ nnoremap ; :
 nnoremap<leader>h :set list!<CR>
 
 autocmd FileType json nnoremap <buffer> = :%!python -m json.tool<CR>
-autocmd FileType javascript nnoremap <buffer> = :call JsBeautify()<CR>
-autocmd FileType javascript nnoremap <buffer> <leader>r :!npm start<CR>
 
 " Color
 color jellybeans
@@ -164,23 +165,10 @@ nnoremap - :res -5<CR>
 set splitbelow
 set splitright
 
-" Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_check_on_w = 0
-" Disable automatic checking
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-nnoremap <leader>m :SyntasticCheck<CR>
-nnoremap { :lnext<CR>
-nnoremap } :lprev<CR>
-nnoremap <leader>e :lclose<CR>
-let g:syntastic_javascript_checkers = ['jshint']
-
+" YCM
 let g:ycm_show_diagnostics_ui = 1
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ycm_auto_trigger = 0
+"let g:ycm_enable_diagnostic_highlighting = 0
+"let g:ycm_auto_trigger = 0
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gt :YcmCompleter GetType<CR>
 nnoremap <leader>fi :YcmCompleter FixIt<CR>
@@ -196,9 +184,6 @@ function ToggleDiagnosticsUI()
 		echo "on"
 	endif
 endfunction
-
-" Vim-move
-let g:move_key_modifier = 'C'
 
 " Fuzzy finder
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
@@ -234,5 +219,22 @@ let g:NERDDefaultAlign = 'left'
 
 " YAML
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Rust
+autocmd FileType rust setlocal ts=2 sts=2 sw=2 expandtab
+let g:ycm_rust_src_path = '~/repos/rust_src/src'
+
+" Wiki
+let wiki = {}
+" Nested syntaxes need to be manually enabled
+let wiki.nested_syntaxes = {
+	\'typescript': 'typescript',
+	\'javascript': 'javascript',
+	\'java': 'java'
+\}
+" Use markdown
+let wiki.syntax = 'markdown'
+let wiki.ext = '.md'
+let g:vimwiki_list = [wiki]
 
 set secure
