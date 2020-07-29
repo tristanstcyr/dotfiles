@@ -23,53 +23,48 @@
 
 set nocompatible
 
-" Vundle
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 " Useful git integration
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " Fancy status line
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " Give markers in gutter
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " File browser
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 " Git status in NERDTree
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Xuyuanp/nerdtree-git-Plug'
 " Search Replace line preview
-Plugin 'osyo-manga/vim-over'
+Plug 'osyo-manga/vim-over'
 " Fuzzy Finder for files and buffers
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Colors
-Plugin 'nanotech/jellybeans.vim'
+Plug 'nanotech/jellybeans.vim'
 " Better syntax highlighting
-Plugin 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 " Kill buffers without closing windows
-Plugin 'qpkorr/vim-bufkill'
+Plug 'qpkorr/vim-bufkill'
 " tmux focus events
-Plugin 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tmux-Plugs/vim-tmux-focus-events'
 " Comment out code
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 " Delete all buffers except current
-Plugin 'vim-scripts/BufOnly.vim'
+Plug 'vim-scripts/BufOnly.vim'
 " Search across files
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 " Add marks to gutter
-Plugin 'kshenoy/vim-signature'
+Plug 'kshenoy/vim-signature'
 " Tmux pane navigation integration
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 " Auto-completion
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 " Personal wiki in vim
-Plugin 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki'
 " Typescript syntax
-"Plugin 'leafgarland/typescript-vim'
-Plugin 'vim-scripts/taglist.vim'
-call vundle#end()
-filetype plugin on
+"Plug 'leafgarland/typescript-vim'
+Plug 'vim-scripts/taglist.vim'
+call plug#end()
 
 " Basic
 set enc=utf-8
