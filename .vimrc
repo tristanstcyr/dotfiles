@@ -34,7 +34,7 @@ Plug 'airblade/vim-gitgutter'
 " File browser
 Plug 'scrooloose/nerdtree'
 " Git status in NERDTree
-Plug 'Xuyuanp/nerdtree-git-Plug'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 " Search Replace line preview
 Plug 'osyo-manga/vim-over'
 " Fuzzy Finder for files and buffers
@@ -42,11 +42,11 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Colors
 Plug 'nanotech/jellybeans.vim'
 " Better syntax highlighting
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 " Kill buffers without closing windows
 Plug 'qpkorr/vim-bufkill'
 " tmux focus events
-Plug 'tmux-Plugs/vim-tmux-focus-events'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 " Comment out code
 Plug 'scrooloose/nerdcommenter'
 " Delete all buffers except current
@@ -61,9 +61,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'Valloric/YouCompleteMe'
 " Personal wiki in vim
 Plug 'vimwiki/vimwiki'
-" Typescript syntax
-"Plug 'leafgarland/typescript-vim'
-Plug 'vim-scripts/taglist.vim'
+
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Basic
@@ -73,7 +72,9 @@ set tabstop=2
 set shiftwidth=2
 syntax on
 set nowrap
-set nofoldenable
+"set nofoldenable
+"set foldmethod=syntax
+"set foldlevel=99
 set backspace=2
 set mouse=a
 set visualbell t_vb=
@@ -160,10 +161,15 @@ nnoremap - :res -5<CR>
 set splitbelow
 set splitright
 
+" Git Gutter
+nnoremap <leader>gg :GitGutterSignsToggle<CR>
+
 " YCM
 let g:ycm_show_diagnostics_ui = 1
 "let g:ycm_enable_diagnostic_highlighting = 0
-"let g:ycm_auto_trigger = 0
+let g:ycm_auto_trigger = ''
+let g:ycm_auto_hover = ''
+
 nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gt :YcmCompleter GetType<CR>
 nnoremap <leader>fi :YcmCompleter FixIt<CR>
