@@ -20,8 +20,8 @@ dimensions:
 # The FreeType rasterizer needs to know the device DPI for best results
 # (changes require restart)
 dpi:
-  x: 96.0
-  y: 96.0
+  x: 96
+  y: 96
 
 # Display tabs using this many cells (changes require restart)
 tabspaces: 8
@@ -50,19 +50,19 @@ font:
     # style: Italic
 
   # Point size of the font
-  size: 12.0
+  size: 14.0
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
   offset:
-    x: 0.0
-    y: 0.0
+    x: 0
+    y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increase the x offset to move the glyph to
   # the right, increase the y offset to move the glyph upward.
   glyph_offset:
-    x: 0.0
-    y: 1.0
+    x: 0
+    y: 1
 
   # OS X only: use thin stroke font rendering. Thin strokes are suitable
   # for retina displays, but for non-retina you probably want this set to
@@ -80,8 +80,8 @@ custom_cursor_colors: false
 colors:
   # Default colors
   primary:
-    background: '0x161616'
-    foreground: '0xeaeaea'
+    background: '0x111111'
+    foreground: '0xffffff'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
@@ -132,7 +132,7 @@ colors:
 #
 # To completely disable the visual bell, set its duration to 0.
 #
-visual_bell:
+visual:
   animation: EaseOutExpo
   duration: 0
 
